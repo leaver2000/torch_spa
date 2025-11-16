@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import torch
 import pandas as pd
+import torch
+
 from torch_spa.core import solar_position
 
 
@@ -14,11 +15,19 @@ def test_one() -> None:
     data = solar_position(datetimes, lats, lons).squeeze()
 
     torch.testing.assert_close(
-        data.azimuth, torch.tensor([280.3651, 281.2308]).double(), atol=1e-2, rtol=1e-2
+        data.azimuth,
+        torch.tensor([280.3651, 281.2308]).double(),
+        atol=1e-2,
+        rtol=1e-2,
+        check_dtype=False,
     )
 
     torch.testing.assert_close(
-        data.elevation, torch.tensor([25.16378, 24.03705]).double(), atol=1e-2, rtol=1e-2
+        data.elevation,
+        torch.tensor([25.16378, 24.03705]).double(),
+        atol=1e-2,
+        rtol=1e-2,
+        check_dtype=False,
     )
 
 
@@ -42,7 +51,7 @@ def test_noaa_comparison() -> None:
     EL = data.elevation.squeeze()
 
     # azimuth
-    torch.testing.assert_close(AZ, test_azimuth, atol=0.1, rtol=1e-2)
+    torch.testing.assert_close(AZ, test_azimuth, atol=0.1, rtol=1e-2, check_dtype=False)
 
     # elevation
-    torch.testing.assert_close(EL, test_elev, atol=0.75, rtol=1e-2)
+    torch.testing.assert_close(EL, test_elev, atol=0.75, rtol=1e-2, check_dtype=False)

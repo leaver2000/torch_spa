@@ -11,14 +11,14 @@ from __future__ import annotations
 
 __all__ = ["solar_position", "solar_zenith", "solar_declination", "SolarPosition"]
 
-from typing import TYPE_CHECKING, Annotated, Iterator, Literal, Sequence, overload
+from typing import TYPE_CHECKING, Annotated, Iterator, Literal, overload
 
 import torch
-from torch_time import julian_day_time
+from torch_time import julian_day_time  # type: ignore[import-untyped]
 
 if TYPE_CHECKING:
     from numpy.typing import ArrayLike
-    from torch_time.core import DatetimeLike
+    from torch_time.core import DatetimeLike  # type: ignore[import-untyped]
 
 
 def _atmospheric_refraction(solar_elevation_angle: torch.Tensor) -> torch.Tensor:
@@ -49,7 +49,7 @@ def _obliquity_of_the_ecliptic(JC: torch.Tensor) -> torch.Tensor:
 # =============================================================================================== #
 # -- main -- #
 # =============================================================================================== #
-class SolarPosition(Sequence[tuple[torch.Tensor, torch.Tensor]]):
+class SolarPosition:
     __slots__ = ("_which", "_azimuth", "_elevation")
     _which: Literal["degrees", "radians"]
     _azimuth: torch.Tensor
