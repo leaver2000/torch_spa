@@ -1,0 +1,2 @@
+torch>=2.0.0
+torch_time @ git+https://github.com/leaver2000/torch_time.git
